@@ -548,7 +548,7 @@ function App() {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>© 2025 CloudFrugal by Shrinkcots. All rights reserved.</p>
+            <p>© 2025 CloudFrugal.app by ShrinkCosts.com. All rights reserved.</p>
           </div>
         </div>
       </footer>
