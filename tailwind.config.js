@@ -4,24 +4,39 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  presets: [require('tailwindcss/defaultConfig')],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          DEFAULT: '#3B82F6',
+          light: '#60A5FA',
+          dark: '#2563EB',
         },
+        secondary: {
+          DEFAULT: '#10B981',
+          light: '#34D399',
+          dark: '#059669',
+        },
+        background: '#F9FAFB',
+        surface: '#FFFFFF',
+        error: '#EF4444',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
+      },
+      boxShadow: {
+        'elevation-1': '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+        'elevation-2': '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
       },
     },
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
 }
