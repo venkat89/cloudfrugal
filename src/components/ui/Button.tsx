@@ -1,5 +1,6 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import { forwardRef } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -10,45 +11,54 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export function Button({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
   size = 'md',
   icon: Icon,
-  iconPosition = 'right',
+  iconPosition = 'left',
   children,
   fullWidth = false,
   className = '',
   ...props
-}: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+}, ref) => {
+  const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variants = {
-    primary: 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg focus:ring-blue-500',
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
     secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500',
-    outline: 'border-2 border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 focus:ring-blue-500',
-    ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500'
+    outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
+    ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-blue-500',
   };
 
   const sizes = {
-    sm: 'px-4 py-2 text-sm gap-2',
-    md: 'px-6 py-3 text-base gap-2',
-    lg: 'px-8 py-4 text-lg gap-3'
+    sm: 'h-9 px-3 text-sm',
+    md: 'h-10 px-4 py-2',
+    lg: 'h-11 px-6 py-3 text-lg',
   };
 
   const iconSizes = {
-    sm: 'w-4 h-4',
-    md: 'w-5 h-5',
-    lg: 'w-6 h-6'
+    sm: 'h-4 w-4',
+    md: 'h-5 w-5',
+    lg: 'h-6 w-6',
   };
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} ${className}`}
+      ref={ref}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${
+        fullWidth ? 'w-full' : ''
+      } ${className}`}
       {...props}
     >
-      {Icon && iconPosition === 'left' && <Icon className={iconSizes[size]} />}
+      {Icon && iconPosition === 'left' && (
+        <Icon className={`${iconSizes[size]} mr-2`} />
+      )}
       {children}
-      {Icon && iconPosition === 'right' && <Icon className={iconSizes[size]} />}
+      {Icon && iconPosition === 'right' && (
+        <Icon className={`${iconSizes[size]} ml-2`} />
+      )}
     </button>
   );
-}
+});
+
+Button.displayName = 'Button';

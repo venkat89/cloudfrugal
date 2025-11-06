@@ -1,16 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { 
-  Menu, X, Cloud, TrendingDown, Shield, Zap, 
-  DollarSign, BarChart3, CheckCircle2, AlertTriangle,
-  Users, Globe, Lock, ArrowRight, Sparkles, Target,
-  LineChart, PieChart, Activity, Cpu, Database, Server,
-  ChevronDown, Play
+  Menu, X, Cloud, Shield, 
+  DollarSign, BarChart3, CheckCircle2,
+  Globe, ArrowRight, Sparkles, Target,
+  Activity, Play
 } from 'lucide-react';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeTab, setActiveTab] = useState('aws');
+  // Removed unused state
   const [stats, setStats] = useState({ savings: 0, customers: 0, monitored: 0 });
 
   useEffect(() => {
@@ -138,29 +137,7 @@ function App() {
     }
   ];
 
-  const useCases = [
-    {
-      title: 'Startups & Scale-ups',
-      description: 'Maximize runway by reducing cloud waste. Perfect for fast-growing companies.',
-      savings: '40-60%',
-      icon: Zap,
-      features: ['Fast setup', 'Automated optimization', 'Growth-ready']
-    },
-    {
-      title: 'Enterprise',
-      description: 'Enterprise-grade cost governance with compliance and audit trails.',
-      savings: '25-35%',
-      icon: Building,
-      features: ['SSO integration', 'Custom policies', 'Dedicated support']
-    },
-    {
-      title: 'FinOps Teams',
-      description: 'Empower your FinOps practice with deep insights and automation.',
-      savings: '30-45%',
-      icon: Users,
-      features: ['Showback/Chargeback', 'Budget management', 'API access']
-    }
-  ];
+  // Removed unused useCases array
 
   const pricing = [
     {
@@ -556,13 +533,5 @@ function App() {
   );
 }
 
-// Helper component for Building icon (not in lucide-react)
-function Building({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-    </svg>
-  );
-}
 
 export default App;

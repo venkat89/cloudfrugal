@@ -1,12 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react({
-      // Enable Fast Refresh
-      fastRefresh: true,
       // Exclude node_modules from transformation
       exclude: /node_modules/,
     })
@@ -22,30 +20,31 @@ export default defineConfig({
     // Enable source maps for production debugging
     sourcemap: true,
     
-    // Optimize chunk splitting
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'icons': ['lucide-react'],
-        },
-      },
-    },
-    
     // Target modern browsers
     target: 'es2020',
     
-    // Minify with terser for better compression
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    // Use default minification
+    minify: 'esbuild',
     
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
+    
+    // Split chunks
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
   },
   
   // Preview server config
